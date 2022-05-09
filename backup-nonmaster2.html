@@ -1,0 +1,578 @@
+<!--Start of Tawk.to Script--> 
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/606040ecf7ce18270934b2bb/1f1rvr75p';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <script src="https://5qyj7fj5rlfh.statuspage.io/embed/script.js"></script>
+    
+    <script>
+    addAccor(); 
+        f3();
+  
+      var localVal = localStorage.getItem("newDay");
+          var today = new Date().toLocaleDateString();
+      
+          if (localVal == null || localVal != today) {
+            localStorage.setItem("newDay", today);
+            getCRMBanner();
+            getBonusBanner();
+            getContestBanner();
+          } else {
+            getCRMfromState();
+            getBonusfromState();
+            getContestfromState();
+          }
+      
+          async function getCRMBanner() {
+            let response = await fetch(
+              "https://us-central1-bp-serverless.cloudfunctions.net/crm/BV7gBKaF6eHtdnc2Cd3G"
+            );
+      
+            let results = await response.json();
+            console.log(results, "API CALLED");
+      
+            localStorage.setItem("CRMBanner", JSON.stringify(results));
+      
+            getCRMfromState();
+          }
+      
+      async function getBonusBanner() {
+            let response = await fetch(
+              "https://us-central1-bp-serverless.cloudfunctions.net/bonus/QeFaS6Oa4I8FH4QpW9wM"
+            );
+      
+            let results = await response.json();
+            console.log(results, "API CALLED");
+      
+            localStorage.setItem("bonusBanner", JSON.stringify(results));
+      
+            getBonusfromState();
+          }
+      
+      async function getContestBanner() {
+            let response = await fetch(
+              "https://us-central1-bp-serverless.cloudfunctions.net/contest/0GZrrntBNa3aRECISaE1"
+            );
+      
+            let results = await response.json();
+            console.log(results, "API CALLED");
+      
+            localStorage.setItem("contestBanner", JSON.stringify(results));
+      
+            getContestfromState();
+          }
+      
+          function getCRMfromState() {
+            // let users = x;
+            //   for (var i = 0, x = users.length; i < x; i++){
+            //      console.log(users[i], users[i].name);
+            //  }
+            let lsString = localStorage.getItem("CRMBanner");
+            let lsParsed = JSON.parse(lsString);
+      
+            console.log(lsParsed);
+      
+            const insert = document.getElementsByClassName("top-buttons")[0];
+      
+            insert.innerHTML = `<a href="https://my.boldprime.com/funds/deposit/"><img class="home_banner" style="width:100%" src=${lsParsed.img_url} alt="header"/></a>`;
+      
+            console.log(localVal, "state of date");
+          }
+      
+      
+      
+      function getBonusfromState() {
+            // let users = x;
+            //   for (var i = 0, x = users.length; i < x; i++){
+            //      console.log(users[i], users[i].name);
+            //  }
+            let lsString = localStorage.getItem("bonusBanner");
+            let item = JSON.parse(lsString);
+      
+            console.log(item);
+      
+            const insert = document.getElementById("bonus_banner");
+      
+            insert.innerHTML = `
+            <div class="bonus_banner_1">
+      <div class="first-row">
+        <div class="bonus_left">
+      <p class="bonus-title">${item.title}</p>
+      <p class="bonus-text">${item.description}</p>
+      </div>
+      <div class="bonus_right">
+        <button id="" class="bonusbut redeemed" onClick="redeemed()">Redeemed</button>
+      </div>
+      </div><a onClick="window.location.href='${item.clickthrough_url}'">
+      <img class="bonus-img" src="${item.img_url}" /></a>
+      </div>
+            `;
+      
+            console.log(localVal, "state of date");
+          }
+      
+      function getContestfromState() {
+            // let users = x;
+            //   for (var i = 0, x = users.length; i < x; i++){
+            //      console.log(users[i], users[i].name);
+            //  }
+            let lsString = localStorage.getItem("contestBanner");
+            let item = JSON.parse(lsString);
+      
+            console.log(item);
+      
+            const insert = document.getElementById("contest_banner");
+      
+            insert.innerHTML = `
+            <div class="bonus_banner_1">
+      <div class="first-row">
+        <div class="bonus_left">
+      <p class="bonus-title">${item.title}</p>
+      <p class="bonus-text">${item.description}</p>
+      </div>
+      <div class="bonus_right">
+        <button id="" class="bonusbut" onClick="window.location.href='${item.clickthrough_url}'">Join Now</button>
+      </div>
+      </div><a onClick="window.location.href='${item.clickthrough_url}'">
+      <img class="bonus-img" src="${item.img_url}" /></a>
+      </div>
+            `;
+      
+            console.log(localVal, "state of date");
+          }
+      
+          function addAccor() {
+            
+            document.getElementsByClassName("content-header")[0].innerHTML = `<div class="accordiv">
+      <button class="accordion_in">Redeemable Bonuses</button>
+      <div id="bonus_banner" class="panela" style="max-height:1200px;">
+      </div>
+      
+      <button class="accordion_in">Contests & Promos</button>
+      <div id="contest_banner" class="panela" >
+      
+      </div>
+      `;
+          }
+      
+       var acc = document.getElementsByClassName("accordion_in");
+          var i;
+      
+          for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+              this.classList.toggle("actives");
+              var panel = this.nextElementSibling;
+              if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+              } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+              }
+            });
+          }
+      
+      
+          function f3() {
+              document.getElementById("menu-profile").innerHTML = `<div class="entire-card">
+        <div id="checkplat" class="firsts-row">
+              <div id="_init" class="pics"></div>
+        </div>
+          
+          <div class="seconds-row">
+      <p class="names-2" id="_id"></p>
+            <p id="first-name-last" class="names"></p>
+      <p id="country-tag" class="country-tag"></p>
+              <p id="isverified" class="tag-ver"></p><p id="isPlatinum" class="tag-plat"></p>
+          </div>
+          
+          <div class="thirds-row">
+          <div class="balance-num"><p id="_balance" class="nums">0.00</p> <p class="numtitle">Total Balance</p></div><div class="credit-num"><p id="_creditbalance" class="nums">2000.00</p> <p class="credtitle">Total Credit</p></div>
+        </div>
+          
+          <div class="fourths-row">
+          <button class="depo" onClick=\"window.location.href='https://my.boldprime.com/funds/deposit/'\">DEPOSIT</button><button onClick=\"window.location.href='https://my.boldprime.com/funds/withdraw'\" class="wd">WITHDRAW</button>
+        </div>
+          <div class="call-inbound" id="call-inbound">
+          </div> 
+          <div class="foot">
+  
+  <a href="https://t.me/boldprimeofficial" style="text-decoration:none;"><img src="https://boldprime.com/wp-content/uploads/2022/01/pngfind.com-twitter-png-logo-530160.png" width="25" height="25" alt="f" style="display:inline-block;color:#cccccc;margin:5px">
+  </a>
+  
+  <a href="https://www.instagram.com/bold.prime/" style="text-decoration:none;">
+  <img src="https://boldprime.com/wp-content/uploads/2022/01/new-instagram-logo-white-border-icon-png-large.png" width="25" height="25" alt="f" style="display:inline-block;color:#cccccc;margin:5px">
+  </a>
+  
+  <a href="https://www.facebook.com/Bold-Prime-105203185115118" style="text-decoration:none;">
+  <img src="https://storage.googleapis.com/storage-bucket-xp/facebook_1.webp" width="30" height="30" alt="f" style="display:inline-block;color:#cccccc;margin:5px">
+  </a>
+  
+  <a href="https://twitter.com/BoldPrime" style="text-decoration:none;"><img src="https://storage.googleapis.com/storage-bucket-xp/twitter_1.webp" width="30" height="30" alt="t" style="display:inline-block;color:#cccccc;margin:5px">
+  </a>
+  
+  </div>
+      <div>`;
+          }
+  
+          var myDiv = document.createElement("div");
+  
+      myDiv.id = "modal_id";
+  
+      myDiv.innerHTML = `<div id="myModal" class="modal-bp">
+  
+  <div id="modal_" class="modal-content">
+  
+  
+  <div class="inner_item">
+  
+    <div class="maintenance_logo">
+    <img src="https://storage.googleapis.com/storage-bucket-xp/scam%2Bedit.png"style="max-width:170px"/>
+    </div>
+    
+    <div class="mtn_content">
+       <p style="text-align:center;margin:0px"><img src="https://storage.googleapis.com/storage-bucket-xp/boldprimelogoblack%20(1).png" style="max-width:200px"/></p>
+       <p style="font-weight:700;font-size:17px;
+      margin: 20px 0px;width:100%;text-align:center">CHECK, REFER & ALWAYS BE ALERT!</p>
+       <img class="popup-image" src="https://storage.googleapis.com/storage-bucket-xp/EXP_221.jpg"/>
+       <p class="popup-para" id="notice_">Bold Prime Ltd has discovered several fraudulent channels using Bold Prime branding to scam users and carry out other fraudulent activities through impersonation. Bold Prime does not have MULTIPLE Telegram channels and/or Social Media pages & Bold Prime OFFICIAL CHANNELS will never request for you to participate in <b>NON OFFCIAL</b> activities.</p>
+        <img class="popup-image" src="https://storage.googleapis.com/storage-bucket-xp/EXP_223.jpg"/>
+       <p class="popup-para">Bold Prime Ltd and its employees would never connect with you through any unofficial channels not officially listed under Bold Prime. Do not hesitate to reach out to our official live support team to verify any channels before proceeding. Thank you.</p>
+       <button id="close-btn-modal">OK</button>
+    </div>
+    
+  </div>
+  
+  </div>`;
+  
+      if (sessionStorage.getItem("clicked") == "yes") {
+        console.log(sessionStorage.getItem("clicked"));
+      } else {
+        document.body.appendChild(myDiv);
+      }
+  
+      var modal = document.getElementById("modal_");
+  
+      var notice = document.getElementById("notice_");
+  
+      var btnz = document.getElementById("close-btn-modal");
+  
+      window.onclick = function (event) {
+        if (event.target != modal && event.target != notice) {
+          myDiv.style.display = "none";
+          sessionStorage.setItem("clicked", "yes");
+        }
+  
+        console.log(event.target);
+      };
+    </script>
+  
+    <script>
+      var globalVariable;
+      var globalVariableTwo;
+      var globalVariableThree;
+  
+      const bonus = `\"Credit Bonus Feb-March\"`;
+  
+      function_two();
+    //   compareIB();
+  
+      function function_one() {
+        const data = dataLayer;
+  
+        const json = JSON.stringify(data);
+  
+        const jsoned = json.replace(/[\[\]']+/g, "");
+  
+        const id = data[0].client_id;
+  
+        return id;
+      }
+  
+      function function_two() {
+        var id = function_one();
+        fetch(`https://my.boldprime.com/rest/users/${id}?version=1.0.0`, {
+          method: "GET",
+          headers: {
+            cookie: "device_view=full",
+            Authorization:
+              "Bearer NDJmZTNhODdkMTBlMTYzOTQxNWZiZTQwMTgwNWE0YjkyMTRkYmQxN2ZlMGM2NmI4MmQ0OGE1ZGNiYWNhNDkzYQ"
+          }
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            const proc = data.tags;
+            const proced = proc.toString().replace(/[\[\]']+/g, "");
+            var result = '"' + proced.split(",").join('","') + '"';
+  
+            globalVariable = result;
+  
+            const idtag = data.id;
+  
+            globalVariableTwo = idtag;
+  
+            const namefirst = data.firstName;
+  
+            globalVariableThree = namefirst;
+  
+            const ibref = data.partnerId;
+  
+            var obj = proc;
+  
+            for (var k in obj) {
+              if (!obj.hasOwnProperty(k)) continue;
+            //   if (obj[k] === "Credit Bonus Feb-March") {
+            //     document.getElementById("on").className = "bonusbut-inverse";
+            //     document.getElementById("off").className = "bonusbut redeemed";
+            //   }
+              if (obj[k] === "Platinum Account") {
+                document.getElementById(
+                  "isPlatinum"
+                ).innerHTML = `<i class="fa fa-rocket"></i> Platinum Member`;
+                document.getElementById("isPlatinum").className = "tag-plat-in";
+                document.getElementById("checkplat").className =
+                  "firsts-row-plat";
+                document.getElementById(
+                  "call-inbound"
+                ).innerHTML = `<p class="num-line"> <i class="	fa fa-phone-square"></i>Official Platinum Hotline:<br/> <b>+601130246348</b> </p> <p class="text-line">Available 9AM - 5PM on Weekdays</p>`;
+                document.getElementById("call-inbound").className =
+                  "call-inbound-in";
+              }
+            }
+  
+            const namelast = data.lastName;
+  
+            const country = data.country;
+  
+            document.getElementById(
+              "first-name-last"
+            ).innerHTML = `<p class="names">${namefirst} ${namelast}</p>`;
+  
+            const firsti = namefirst.charAt(0);
+            const lasti = namelast.charAt(0);
+  
+            document.getElementById(
+              "_init"
+            ).innerHTML = `<p class="names">${firsti} ${lasti}</p>`;
+            document.getElementById("country-tag").innerHTML = `${country}`;
+  
+            const isverified = data.verified;
+  
+            if (isverified === true) {
+              document.getElementById(
+                "isverified"
+              ).innerHTML = `<i class="fa fa-check-circle"></i> Verified`;
+            } else {
+              document.getElementById(
+                "isverified"
+              ).innerHTML = `<i class="fa fa-exclamation-triangle"></i> Unverified`;
+              document.getElementById("isverified").className = "tag-unver";
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+  
+      function redeemed() {
+        alert(
+          `Hi ${globalVariableThree}, your bonus is automatically redeemed daily. So enjoy a daily credit bonus up to $2000! Have fun and enjoy trading.`
+        );
+      }
+  
+      function giveBonus() {
+        fetch("https://my.boldprime.com/rest/users/update?version=1.0.0", {
+          method: "POST",
+          headers: {
+            cookie: "device_view=full",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer NDJmZTNhODdkMTBlMTYzOTQxNWZiZTQwMTgwNWE0YjkyMTRkYmQxN2ZlMGM2NmI4MmQ0OGE1ZGNiYWNhNDkzYQ"
+          },
+          body: `{\"user\":\"${globalVariableTwo}\",\"tags\":[${globalVariable},${bonus}]}`
+        })
+          .then((response) => {
+            alert(
+              `Hi ${globalVariableThree}, congratulations! Your bonus has been redeemed! Please continue to deposit page to receive your bonus.`
+            );
+            window.location.href = "https://my.boldprime.com/funds/deposit/";
+            console.log(response);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+  
+      function giveReject() {
+        alert(
+          `Sorry ${globalVariableThree}, you have already redeemed this bonus. Please stand by as we are introducing more bonuses soon! `
+        );
+      }
+  
+    //   function compareIB() {
+    //     var id = function_one();
+    //     fetch(`https://my.boldprime.com/rest/users/${id}?version=1.0.0`, {
+    //       method: "GET",
+    //       headers: {
+    //         cookie: "device_view=full",
+    //         Authorization:
+    //           "Bearer NDJmZTNhODdkMTBlMTYzOTQxNWZiZTQwMTgwNWE0YjkyMTRkYmQxN2ZlMGM2NmI4MmQ0OGE1ZGNiYWNhNDkzYQ"
+    //       }
+    //     })
+    //       .then((response) => {
+    //         return response.json();
+    //       })
+    //       .then((data) => {
+    //         const ibref = data.partnerId;
+    //         const dat = JSON.stringify(ibref);
+  
+    //         if (dat.match("28605")) {
+    //           document.getElementById("ib-specific").className =
+    //             "bonus_banner_1";
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         console.error(err);
+    //       });
+    //   }
+    </script>
+  
+    <script>
+      const dataLayer = window.dataLayer;
+  
+      const dataz = dataLayer;
+  
+      const id = dataz[0].client_id;
+  
+      const url = "https://my.boldprime.com/rest/accounts?version=1.0.0";
+  
+      function useState() {
+        let _state = null;
+  
+        function getState() {
+          return _state;
+        }
+  
+        function setState(data) {
+          _state = [...data];
+        }
+  
+        return [getState, setState];
+      }
+  
+      const [getState, setState] = useState();
+  
+      async function getData(url) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            cookie: "device_view=full",
+            accept: "application/json",
+            Authorization:
+              "Bearer NDJmZTNhODdkMTBlMTYzOTQxNWZiZTQwMTgwNWE0YjkyMTRkYmQxN2ZlMGM2NmI4MmQ0OGE1ZGNiYWNhNDkzYQ",
+            "Content-Type": "application/json"
+          },
+          body: `{\"userId\":${id}}`
+        });
+        const data = await response.json();
+        return data;
+      }
+  
+      function addPrice(a, b) {
+        return a + parseFloat(b);
+      }
+  
+      function test() {
+        const value = "usd";
+        const valueusc = "usc";
+  
+        const demoAcc = [
+          { accountTypeId: 2 },
+          { accountTypeId: 3 },
+          { accountTypeId: 13 }
+        ];
+  
+        const data = getState();
+  
+        const filteredItems = data.filter(
+          (item) =>
+            item.currency.toLowerCase().includes(value) &&
+            item.accountTypeId != 2 &&
+            item.accountTypeId != 3 &&
+            item.accountTypeId != 13
+        );
+  
+        let result = filteredItems.map((a) => a.balance);
+        const added = result.reduce(addPrice, 0);
+  
+        const filteredItemsUsc = data.filter(
+          (item) =>
+            item.currency.toLowerCase().includes(valueusc) &&
+            item.accountTypeId != 2 &&
+            item.accountTypeId != 3 &&
+            item.accountTypeId != 13
+        );
+  
+        let resultusc = filteredItemsUsc.map((a) => a.balance);
+        const addedusc = resultusc.reduce(addPrice, 0);
+  
+        const uscdiv = addedusc / parseFloat(100);
+  
+        const totalbal = +added.toFixed(2) + +uscdiv.toFixed(2);
+  
+        document.getElementById(
+          "_balance"
+        ).innerHTML = `<p class="nums">$ ${totalbal}</p>`;
+        document.getElementById(
+          "_id"
+        ).innerHTML = `<p class="user-text"><i class="fa fa-user"></i> ${id}</p>`;
+      }
+  
+      function test2() {
+        const value = "usd";
+        const valueusc = "usc";
+        const data = getState();
+        const filteredItems = data.filter((item) =>
+          item.currency.toLowerCase().includes(value)
+        );
+  
+        let result = filteredItems.map((a) => a.credit);
+        const added = result.reduce(addPrice, 0);
+  
+        const filteredItemsUsc = data.filter((item) =>
+          item.currency.toLowerCase().includes(valueusc)
+        );
+  
+        let resultusc = filteredItemsUsc.map((a) => a.credit);
+        const addedusc = resultusc.reduce(addPrice, 0);
+  
+        const uscdiv = addedusc / parseFloat(100);
+  
+        const totalbal = +added.toFixed(2) + +uscdiv.toFixed(2);
+  
+        document.getElementById(
+          "_creditbalance"
+        ).innerHTML = `<p class="nums">$ ${totalbal}</p>`;
+      }
+  
+      async function handleInitialLoad() {
+        const data = await getData(url);
+        setState(data);
+        test();
+        test2();
+  
+        document.getElementById(
+          "menu-home"
+        ).innerHTML = `<a  class="menu__link" target="_self" href="/accounts"><i class="fa fa-home"></i><span class="menu__label"> Home</span></a>`;
+      }
+  
+      window.addEventListener("DOMContentLoaded", handleInitialLoad);
+    </script>

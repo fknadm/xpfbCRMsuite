@@ -3071,8 +3071,32 @@
     </div>
   </div>
 
-
   <script>
+var target = document.querySelectorAll("body");
+
+
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        var foo = mutation.target.getAttribute("class")
+        
+
+const coll = foo.includes('sidebar-collapse')
+           console.log(coll)
+
+        if (coll == 1) {
+          document.querySelector('.loader').style.left = "0%" }
+            else {document.querySelector('.loader').style.left = "20%"  }
+            
+            
+            
+    });
+});
+
+var configo = { attributes: true };
+
+observer.observe(target[0], configo);
+
+
     const getFormDataCRM = () => {
       const form = document.getElementById("crmHeader");
       return new FormData(form);
