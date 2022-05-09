@@ -1,0 +1,126 @@
+<script>
+var localVal = localStorage.getItem("newDay");
+var today = new Date().toLocaleDateString();
+
+if (localVal == null || localVal != today) {
+  localStorage.setItem("newDay", today);
+  getCRMBanner();
+} else {
+  getCRMfromState();
+}
+
+async function getCRMBanner() {
+  let response = await fetch(
+    "https://us-central1-bp-serverless.cloudfunctions.net/crm/BV7gBKaF6eHtdnc2Cd3G"
+  );
+
+  let results = await response.json();
+  console.log(results, "API CALLED");
+
+  localStorage.setItem("loaded", JSON.stringify(results));
+
+  getCRMfromState();
+}
+
+function getCRMfromState() {
+  // let users = x;
+  //   for (var i = 0, x = users.length; i < x; i++){
+  //      console.log(users[i], users[i].name);
+  //  }
+  let lsString = localStorage.getItem("loaded");
+  let lsParsed = JSON.parse(lsString);
+
+  console.log(lsParsed);
+
+  const insert = document.getElementsByClassName("top-buttons")[0];
+
+  insert.innerHTML = `<a href="https://my.boldprime.com/funds/deposit/"><img class="home_banner" style="width:100%" src=${lsParsed.img_url} alt="idk"/></a>`;
+
+  console.log(localVal, "state of date");
+}
+myFunctionz(); 
+
+function myFunctionz() {
+  
+  document.getElementsByClassName("content-header")[0].innerHTML = `<div class="accordiv">
+<button class="accordion_in">Redeemable Bonuses</button>
+<div id="bonus_banner" class="panela" style="max-height:1200px;">
+
+<div class="bonus_banner_1">
+<div class="first-row">
+  <div class="bonus_left">
+<p class="bonus-title">Eid Al Fitr 50% Deposit Bonus </p>
+<p class="bonus-text">Eligible for all members, <b>PLATINUM</b> and <b>STANDARD</b> members! Bonus automatically redeemed starting 1st May. Deposit, receive your bonus and happy trading!</p>
+</div>
+<div class="bonus_right">
+  <button id="" class="bonusbut redeemed" onClick="redeemed()">REDEEMED</button>
+</div>
+</div><a onClick="giveBonus()">
+<img class="bonus-img" src="https://assets.codepen.io/t-3230/redeemable.png" /></a>
+</div>
+
+<div id="additional_bonus" class="bonus_banner_1_off">
+<div class="first-row">
+  <div class="bonus_left">
+<p class="bonus-title">IB FLASH PROMO WEEKLY 50% DEPOSIT BONUS!</p>
+<p class="bonus-text"><b>REFRESH EVERY MONDAY PROMO</b> Eligible for all members under IB @tokmatgoldhunter 
+Channel : https://t.me/goldhuntertokmat . Don't miss out! Deposit now.</p>
+</div>
+<div class="bonus_right">
+  <button id="" class="bonusbut redeemed" onClick="redeemed()">REDEEMED</button>
+</div>
+</div><a onClick="giveBonus()">
+<img class="bonus-img" src="https://boldprime.com/wp-content/uploads/2022/02/tg-banner2.png" /></a>
+</div>
+
+<div id="additional_bonus" class="bonus_banner_1">
+<div class="first-row">
+  <div class="bonus_left">
+<p class="bonus-title">50% Bonus Deposit!</p>
+<p class="bonus-text">Eligible for all Standard and Platinum Bold Prime Members. Don't miss out! Deposit now.</p>
+</div>
+<div class="bonus_right">
+  <button id="on" class="bonusbut" onClick="giveBonus()">GET BONUS</button>
+<button id="off" class="bonusbut-inverse" onClick="giveReject()">REDEEMED</button>
+</div>
+</div><a onClick="giveBonus()">
+<img class="bonus-img" src="https://assets.codepen.io/2886077/CRM_Homepage_Header.png" /></a>
+</div>
+</div>
+
+<button class="accordion_in">Contests & Promos</button>
+<div class="panela" >
+<div class="bonus_banner_1">
+<div class="first-row">
+  <div class="bonus_left">
+<p class="bonus-title">Demo Trading Contest!</p>
+<p class="bonus-text">Showcase your trading skills Deposit now.
+</div>
+<div class="bonus_right">
+<button class="bonusbut" onClick=\"window.location.href='https://my.boldprime.com/contest/list/'\">JOIN NOW</button>
+</div>
+</div><a onClick="">
+<img class="bonus-img" src="https://assets.codepen.io/t-3230/800+445+EDM+WIN+2%2C000.png" /></a>
+</div>
+</div>
+</div>
+`;
+}
+
+
+
+var acc = document.getElementsByClassName("accordion_in");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function () {
+    this.classList.toggle("actives");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
