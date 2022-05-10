@@ -12,11 +12,44 @@
     </script>
     <!--End of Tawk.to Script-->
     <script src="https://5qyj7fj5rlfh.statuspage.io/embed/script.js"></script>
+<script>
+var target = document.querySelectorAll("body");
+
+
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        var foo = mutation.target.getAttribute("class")
+        
+
+const coll = foo.includes('sidebar-collapse')
+           console.log(coll)
+
+        if (coll == 1) {
+          document.querySelector('.entire-card').style.display = "none"
+         }
+            else {
+              document.querySelector('.entire-card').style.display = "block"
+             }
+            
+            
+            
+    });
+});
+
+var configo = { attributes: true };
+
+observer.observe(target[0], configo);
+</script>
     
     <script>
     addAccor(); 
         f3();
-  
+
+
+setInterval(function(){
+ localStorage.removeItem("newDay") 
+}, 60000);
+
       var localVal = localStorage.getItem("newDay");
           var today = new Date().toLocaleDateString();
       
@@ -69,6 +102,19 @@
       
             getContestfromState();
           }
+
+          async function getPopUp() {
+          let response = await fetch(
+            "https://us-central1-bp-serverless.cloudfunctions.net/popup/JOiaVsgo1BLevBRtvfXe"
+          );
+    
+          let results = await response.json();
+          console.log(results, "API CALLED");
+    
+          localStorage.setItem("popUp", JSON.stringify(results));
+    
+          getPopUpfromState();
+        }
       
           function getCRMfromState() {
             // let users = x;
@@ -148,6 +194,57 @@
       
             console.log(localVal, "state of date");
           }
+
+          function getPopUpfromState() {
+          // let users = x;
+          //   for (var i = 0, x = users.length; i < x; i++){
+          //      console.log(users[i], users[i].name);
+          //  }
+          let lsString = localStorage.getItem("popUp");
+          let item = JSON.parse(lsString);
+    
+          // const insertImg = document.getElementById("popup-image");
+          // const insertHtml = document.getElementById("")
+    
+          // insertImg.innerHTML = `<img src=${item.img_url} style="max-width:170px"/>`;
+    
+          console.log(localVal, "state of date");
+
+          var myDiv = document.createElement("div");
+
+          myDiv.id = "modal_id";
+
+          myDiv.innerHTML = `<div id="myModal" class="modal-bp">
+
+<div id="modal_" class="modal-content">
+
+
+<div class="inner_item">
+
+  <div id="popup-image" class="maintenance_logo">
+    <img src=${item.img_url} style="max-width:170px"/>
+  </div>
+  
+  <div class="mtn_content">
+    <img src=${item.img_url} style="max-width:200px"/>
+     <p style="font-weight:700;font-size:17px;
+    margin: 20px 0px;width:100%;text-align:center">${item.title}</p>
+     <img class="popup-image" ${item.content_img_url}/>
+     <p class="popup-para" id="notice_">Bold Prime Ltd has discovered several fraudulent channels using Bold Prime branding to scam users and carry out other fraudulent activities through impersonation. Bold Prime does not have MULTIPLE Telegram channels and/or Social Media pages & Bold Prime OFFICIAL CHANNELS will never request for you to participate in <b>NON OFFCIAL</b> activities.</p>
+     <p class="popup-para">Bold Prime Ltd and its employees would never connect with you through any unofficial channels not officially listed under Bold Prime. Do not hesitate to reach out to our official live support team to verify any channels before proceeding. Thank you.</p>
+     <button id="close-btn-modal">OK</button>
+  </div>
+  
+</div>
+
+</div>`;
+
+    if (sessionStorage.getItem("clicked") == "yes") {
+      console.log(sessionStorage.getItem("clicked"));
+    } else {
+      document.body.appendChild(myDiv);
+    }
+        }
       
           function addAccor() {
             
@@ -220,42 +317,6 @@
   </div>
       <div>`;
           }
-  
-          var myDiv = document.createElement("div");
-  
-      myDiv.id = "modal_id";
-  
-      myDiv.innerHTML = `<div id="myModal" class="modal-bp">
-  
-  <div id="modal_" class="modal-content">
-  
-  
-  <div class="inner_item">
-  
-    <div class="maintenance_logo">
-    <img src="https://storage.googleapis.com/storage-bucket-xp/scam%2Bedit.png"style="max-width:170px"/>
-    </div>
-    
-    <div class="mtn_content">
-       <p style="text-align:center;margin:0px"><img src="https://storage.googleapis.com/storage-bucket-xp/boldprimelogoblack%20(1).png" style="max-width:200px"/></p>
-       <p style="font-weight:700;font-size:17px;
-      margin: 20px 0px;width:100%;text-align:center">CHECK, REFER & ALWAYS BE ALERT!</p>
-       <img class="popup-image" src="https://storage.googleapis.com/storage-bucket-xp/EXP_221.jpg"/>
-       <p class="popup-para" id="notice_">Bold Prime Ltd has discovered several fraudulent channels using Bold Prime branding to scam users and carry out other fraudulent activities through impersonation. Bold Prime does not have MULTIPLE Telegram channels and/or Social Media pages & Bold Prime OFFICIAL CHANNELS will never request for you to participate in <b>NON OFFCIAL</b> activities.</p>
-        <img class="popup-image" src="https://storage.googleapis.com/storage-bucket-xp/EXP_223.jpg"/>
-       <p class="popup-para">Bold Prime Ltd and its employees would never connect with you through any unofficial channels not officially listed under Bold Prime. Do not hesitate to reach out to our official live support team to verify any channels before proceeding. Thank you.</p>
-       <button id="close-btn-modal">OK</button>
-    </div>
-    
-  </div>
-  
-  </div>`;
-  
-      if (sessionStorage.getItem("clicked") == "yes") {
-        console.log(sessionStorage.getItem("clicked"));
-      } else {
-        document.body.appendChild(myDiv);
-      }
   
       var modal = document.getElementById("modal_");
   

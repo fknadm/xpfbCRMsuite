@@ -9,47 +9,6 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <style>
-
-    .icon-urls {width:10%}
-
-    #showAnnouncements,
-    #showRewards, #showNews, #showAnalysis {
-      justify-content: space-evenly;
-      align-items: flex-start;
-      border: 1px solid;
-      background-color: #85a0cc;
-      overflow-x: scroll;
-      margin: auto;
-      display: -webkit-box;
-    }
-
-
-    .col-an {
-      width: 30%;
-      /* margin: auto !important; */
-      border: 1px solid;
-      margin: 10px;
-      padding: 5px;
-      background-color: white;
-    }
-
-    .text-box {
-      display: flex;
-      justify-content: flex-start;
-      font-size: 12px !important;
-      font-weight: 700;
-      align-items: flex-start;
-
-    }
-
-    p.body-content.p {
-      font-size: 10px;
-    }
-
-    .text-box>i {
-      font-size: 12px
-    }
-
     .spinnerbg {
       position: fixed;
       top: 0;
@@ -178,7 +137,6 @@
 
     .container_2 {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       background-color: #ffffff;
@@ -225,6 +183,7 @@
     .card {
       background: #f3f8ff;
       width: 100%;
+      height: 800px;
       margin: 5px;
       padding: 30px;
       border-radius: 60px;
@@ -240,6 +199,7 @@
     .k_card {
       background: #FFF3F3;
       width: 100%;
+      height: 800px;
       margin: 5px;
       padding: 30px;
       border-radius: 60px;
@@ -254,6 +214,7 @@
     .k_card_single {
       background: #FFF3F3;
       width: 50%;
+      height: 800px;
       margin: 5px;
       padding: 30px;
       border-radius: 60px;
@@ -411,8 +372,6 @@
         <p class="title">News</p>
         <p class="subheading">ADD* news articles. sorted by latest updates</p>
       </div>
-      <div id="showNews">
-      </div>
       <form id="news">
         <div class="upperform">
           <input name="icon_url" type="url" placeholder="Icon URL:" required />
@@ -435,7 +394,6 @@
         <p class="title">Analysis</p>
         <p class="subheading">ADD* analysis content. sorted by latest updates</p>
       </div>
-      <div id="showAnalysis"></div>
       <form id="analysis">
         <div class="upperform">
           <input name="icon_url" type="url" placeholder="Icon URL:" required />
@@ -463,8 +421,6 @@
       <div>
         <p class="title">Announcements</p>
         <p class="subheading">ADD* announcements. sorted by latest updates</p>
-      </div>
-      <div id="showAnnouncements">
       </div>
       <form id="announcements">
         <div class="upperform">
@@ -1284,8 +1240,6 @@
         <div style="    display: flex;
         flex-direction: column;
         width: 100%;">
-          <div id="showRewards">
-          </div>
           <select name="icon_class" id="announcements">
             <option value='fa-500px'>&#xf26e; fa-500px</option>
             <option value='fa-address-book'>&#xf2b9; fa-address-book</option>
@@ -2265,7 +2219,6 @@
         <p class="title">Announcements</p>
         <p class="subheading">ADD* announcements. sorted by latest updates</p>
       </div>
-
       <form id="k_announcements">
         <div class="upperform">
           <select name="icon_class" id="announcements">
@@ -3119,205 +3072,34 @@
   </div>
 
   <script>
-    var target = document.querySelectorAll("body");
+var target = document.querySelectorAll("body");
 
 
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
         var foo = mutation.target.getAttribute("class")
+        
 
-
-        const coll = foo.includes('sidebar-collapse')
-        console.log(coll)
+const coll = foo.includes('sidebar-collapse')
+           console.log(coll)
 
         if (coll == 1) {
           document.querySelector('.loader_').style.left = "0%"
-        }
-        else {
-          document.querySelector('.loader_').style.left = "20%"
-        }
-
-
-
-      });
+         }
+            else {
+              document.querySelector('.loader_').style.left = "20%" 
+             }
+            
+            
+            
     });
+});
 
-    var configo = { attributes: true };
+var configo = { attributes: true };
 
-    observer.observe(target[0], configo);
-
-    // GET ALL CURRENT ENTRIES
-
-    fetchAnnouncements();
-    fetchRewards();
-    fetchNews();
-    fetchAnalysis();
-
-    async function fetchAnnouncements() {
-      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/announcements");
-      let results = await response.json();
-      controllerAnnouncements(results);
-    }
-
-    async function fetchNews() {
-      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/news");
-      let results = await response.json();
-      controllerNews(results);
-    }
-
-    async function fetchRewards() {
-      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/rewards");
-      let results = await response.json();
-      controllerRewards(results);
-    }
-
-    async function fetchAnalysis() {
-      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/analysis");
-      let results = await response.json();
-      controllerAnalysis(results);
-    }
+observer.observe(target[0], configo);
 
 
-    function controllerAnnouncements(x) {
-      let results = x;
-
-
-      const brx = document.getElementById('showAnnouncements')
-      brx.innerHTML = results.map((values) => `
- <div class="col-an">
-  <p style="font-size:10px">Submitted: ${values.date}<br/>${values.id}</p>
-      <a href=${values.clickthrough_link}>
-      <img style="width:200px" src=${values.img_url}>
-    </a>
-    <div class="text-box" style="display:flex;justify-content:flex-start;align-items:center">
-            <i class="${values.icon_class}" style="font-size:30px; padding-top:"6px"></i>
-             <p class="article-title p">
-                 ${values.title}
-             </p>  
-    </div>
-    
-    <p class="divider p" style="border-bottom: 2px #81b5e3 solid;
-      width: 25%;
-      margin: 13px 60px;"></p>
-
-    <p class="body-content p">
-      ${values.description}
-    </p>
- </div>`).join('')
-
-    }
-
-    function controllerRewards(x) {
-      let results = x;
-
-
-      const brx = document.getElementById('showRewards')
-      brx.innerHTML = results.map((values) => `
- <div class="col-an">
-  <p style="font-size:10px">Submitted: ${values.date}<br/>${values.id}</p>
-      <a href=${values.clickthrough_link}>
-      <img style="width:200px" src=${values.img_url}>
-    </a>
-    <div class="text-box" style="display:flex;justify-content:flex-start;align-items:center">
-            <i class="fa ${values.icon_class}" style="font-size:30px; padding-top:"6px"></i>
-             <p class="article-title p">
-                 ${values.title}
-             </p>  
-    </div>
-    
-    <p class="divider p" style="border-bottom: 2px #81b5e3 solid;
-      width: 25%;
-      margin: 13px 60px;"></p>
-
-    <p class="body-content p">
-      ${values.description}
-    </p>
- </div>`).join('')
-
-    }
-
-    function controllerNews(x) {
-      let results = x;
-
-
-      const brx = document.getElementById('showNews')
-      brx.innerHTML = results.map((values) => `
- <div class="col-an">
-  <p style="font-size:10px">Submitted: ${values.date}<br/>${values.id}</p>
-  <div class="text-box" style="display:flex;justify-content:flex-start;align-items:center">
-            <img class="${values.icon_url}" style="font-size:30px; padding-top:"6px"/>
-             <p class="article-title p">
-                 ${values.title}
-             </p>  
-    </div>
-  
-    <p class="divider p" style="border-bottom: 2px #81b5e3 solid;
-      width: 25%;
-      margin: 13px 60px;"></p>
-      <div>
-    <p class="article-title p">
-                 ${values.heading}
-             </p>  
-    <p class="body-content p">
-      ${values.article}
-    </p>
-    </div>
-    
- </div>`).join('')
-
-    }
-
-    function controllerAnalysis(x) {
-      let results = x;
-
-
-      const brx = document.getElementById('showAnalysis')
-      brx.innerHTML = results.map((values) => `
- <div class="col-an">
-  <p style="font-size:10px">Submitted: ${values.identified}<br/>${values.id}</p>
-  <div class="text-box" style="display:flex;flex-direction:column;justify-content:flex-start;align-items:center">
-            <img class="icon-urls" src="${values.icon_url}" style="font-size:30px; padding-top:"6px"/>
-             <p class="article-title p">
-                 ${values.security}
-             </p>  
-             <p class="article-title p">
-                 ${values.pair}
-             </p>  
-    </div>
-  
-    <p class="divider p" style="    border-bottom: 2px #81b5e3 solid;
-    width: 25%;
-    margin: 10px auto;">
-    </p>
-
-  <div>
-    <img src=${values.chart_url} />
-    <p class="body-content p">
-                 Interval: ${values.interval}
-    </p>    
-    <p class="body-content p">
-      Pattern: ${values.pattern}
-    </p>
-    <p class="body-content p">
-      Length: ${values.length}
-    </p>
-    <p class="body-content p">
-      Identified: ${values.identified}
-    </p>
-    <p class="body-content p">
-      ${values.summary}
-    </p>
-    <p class="body-content p">
-      <b>${values.bold_text}</b>
-    </p>
-
-  </div>
-    
- </div>`).join('')
-
-    }
-
-    // GET ALL FORMDATA
     const getFormDataCRM = () => {
       const form = document.getElementById("crmHeader");
       return new FormData(form);
