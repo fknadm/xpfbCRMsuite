@@ -48,7 +48,7 @@ observer.observe(target[0], configo);
 
 setInterval(function(){
  localStorage.removeItem("newDay") 
-}, 60000);
+}, 5000);
 
       var localVal = localStorage.getItem("newDay");
           var today = new Date().toLocaleDateString();
@@ -58,7 +58,9 @@ setInterval(function(){
             getCRMBanner();
             getBonusBanner();
             getContestBanner();
+            getPopUp();
           } else {
+            getPopUpfromState();
             getCRMfromState();
             getBonusfromState();
             getContestfromState();
@@ -202,6 +204,8 @@ setInterval(function(){
           //  }
           let lsString = localStorage.getItem("popUp");
           let item = JSON.parse(lsString);
+
+         
     
           // const insertImg = document.getElementById("popup-image");
           // const insertHtml = document.getElementById("")
@@ -214,36 +218,68 @@ setInterval(function(){
 
           myDiv.id = "modal_id";
 
-          myDiv.innerHTML = `<div id="myModal" class="modal-bp">
+          function compare() {
+            if ( item.content_img_url.length < 2) {
+            console.log('nth'); return ` `
+          } else {return `<img id="content-image-switch" width="100%" src=${item.content_img_url}/>`}
+          }
 
-<div id="modal_" class="modal-content">
+          let compareItem = compare();
 
+          myDiv.innerHTML = `
+<div id="myModal" class="modal-bp">
 
-<div class="inner_item">
+<div id="notice_" class="fulldesign">
 
-  <div id="popup-image" class="maintenance_logo">
-    <img src=${item.img_url} style="max-width:170px"/>
+  <div class="bannerdisplay">
+    <img src=${item.img_url_desktop} class="image_1">
+    <img src=${item.img_url_mobile} class="image_2" />
+  </div>
+
+  <div class="secondcontent">
+    <div class="contentinside">
+        <p class="heading">${item.title}</p>
+        <a href=${item.link_any}>
+        ${compare()}
+        </a>
+        <p class="content_heading">${item.content}</p>
+    </div>
+    <div class="bottomdown">
+      <div class= "forbutz">
+        <button id="close-btn-modal" class="newbutonz">Okay</button>
+      </div>
+      <div class="giftbox">
+        <img src=${item.icon_url} class="gift" />
+      </div>
   </div>
   
-  <div class="mtn_content">
-    <img src=${item.img_url} style="max-width:200px"/>
-     <p style="font-weight:700;font-size:17px;
-    margin: 20px 0px;width:100%;text-align:center">${item.title}</p>
-     <img class="popup-image" ${item.content_img_url}/>
-     <p class="popup-para" id="notice_">Bold Prime Ltd has discovered several fraudulent channels using Bold Prime branding to scam users and carry out other fraudulent activities through impersonation. Bold Prime does not have MULTIPLE Telegram channels and/or Social Media pages & Bold Prime OFFICIAL CHANNELS will never request for you to participate in <b>NON OFFCIAL</b> activities.</p>
-     <p class="popup-para">Bold Prime Ltd and its employees would never connect with you through any unofficial channels not officially listed under Bold Prime. Do not hesitate to reach out to our official live support team to verify any channels before proceeding. Thank you.</p>
-     <button id="close-btn-modal">OK</button>
   </div>
-  
+ 
+</div>
 </div>
 
-</div>`;
+`;
 
     if (sessionStorage.getItem("clicked") == "yes") {
       console.log(sessionStorage.getItem("clicked"));
     } else {
       document.body.appendChild(myDiv);
     }
+
+    var modal = document.getElementById("modal_");
+  
+      var notice = document.getElementById("notice_");
+  
+      var btnz = document.getElementById("close-btn-modal");
+  
+      window.onclick = function (event) {
+        if (event.target != modal && event.target != notice) {
+          myDiv.style.display = "none";
+          sessionStorage.setItem("clicked", "yes");
+        }
+  
+        console.log(event.target, 'look');
+      };
         }
       
           function addAccor() {
@@ -318,20 +354,6 @@ setInterval(function(){
       <div>`;
           }
   
-      var modal = document.getElementById("modal_");
-  
-      var notice = document.getElementById("notice_");
-  
-      var btnz = document.getElementById("close-btn-modal");
-  
-      window.onclick = function (event) {
-        if (event.target != modal && event.target != notice) {
-          myDiv.style.display = "none";
-          sessionStorage.setItem("clicked", "yes");
-        }
-  
-        console.log(event.target);
-      };
     </script>
   
     <script>
