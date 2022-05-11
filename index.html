@@ -10,10 +10,17 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <style>
 
-    .icon-urls {width:10%}
+    .up-title-prev {
+      display: none;
+    }
+    .icon-urls {
+      width: 10%
+    }
 
     #showAnnouncements,
-    #showRewards, #showNews, #showAnalysis {
+    #showRewards,
+    #showNews,
+    #showAnalysis, #showPopup, #showCRM, #showBonus, #showContest {
       justify-content: space-evenly;
       align-items: flex-start;
       border: 1px solid;
@@ -31,6 +38,13 @@
       margin: 10px;
       padding: 5px;
       background-color: white;
+    }
+
+    .col-an-single {
+      
+      margin: 10px;
+      padding: 5px;
+ 
     }
 
     .text-box {
@@ -288,7 +302,7 @@
       align-items: center;
     }
 
-    .heading {
+    .headingcrm {
       margin: 0;
     }
 
@@ -321,8 +335,8 @@
 
     <div class="second-row">
       <div class="column-one">
-        <p class="heading">CRM</p>
-        <p class="heading"><b>Editing Suite</b></p>
+        <p class="headingcrm">CRM</p>
+        <p class="headingcrm"><b>Editing Suite</b></p>
       </div>
 
       <div class="column-two">
@@ -350,13 +364,31 @@
         <p class="title">CRM Banner</p>
         <p class="subheading">EDIT* / Replace CRM main masthead</p>
       </div>
+      <div id="showCRM">
+
+      </div>
 
       <form id="crmHeader">
         <div style="    display: flex;
         flex-direction: column;
         width: 100%;">
           <input name="name" type="text" placeholder="Title:" required />
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+              <button class="image-box" id="1" onClick="myWidget.open()">
+            Upload Image
+              </button> 
+              <div id="op1" class="up-title-prev">
+                <p class="up-title-p">Upload Preview: </p> 
+                <img class="imup-prev" id="uploadedimage1" src="" />
+                <button class="close-btn-prev" onClick="closePreview(this,event)">
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+          </div>
+
+          <input id="ob1" name="img_url" type="hidden" placeholder="Image URL:" required />
         </div>
 
         <div>
@@ -371,11 +403,18 @@
         <p class="subheading">EDIT* / Replace Bonus dropdown banner</p>
       </div>
       <form id="bonus">
+        <div id="showBonus"></div>
         <div class="upperform">
           <input name="title" type="text" placeholder="Title:" required />
           <textarea name="description" type="text" placeholder="Description:" style="padding-bottom: 100px"
             required></textarea>
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+            <div class="fileUploadSection">
+              <p class="up-title">Upload IMG</p>
+              <button class="image-box" id="2" onClick="myWidget.open()">
+                Upload Image
+              </button> <img class="imup-prev" id="uploadedimage2" src="" />
+              </div>
+          <input id="ob2" name="img_url" type="hidden" placeholder="Image URL:" required />
           <input name="clickthrough_url" type="url" placeholder="Clickthrough URL:" required />
         </div>
 
@@ -392,11 +431,18 @@
         <p class="title">Contest</p>
         <p class="subheading">EDIT* / Replace Contest/promo dropdown banner</p>
       </div>
+      <div id="showContest"></div>
       <form id="contest">
         <div class="upperform">
           <input name="title" type="text" placeholder="Title:" required />
           <input name="description" type="text" placeholder="Description:" required />
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="3" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage3" src="" />
+            </div>
+          <input id="ob3" name="img_url" type="hidden" placeholder="Image URL:" required />
           <input name="clickthrough_url" type="url" placeholder="Clickthrough URL:" required />
         </div>
 
@@ -415,7 +461,13 @@
       </div>
       <form id="news">
         <div class="upperform">
-          <input name="icon_url" type="url" placeholder="Icon URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="4" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage4" src="" />
+            </div>
+          <input id="ob4" name="icon_url" type="hidden" placeholder="Icon URL:" required />
           <input name="title" type="text" placeholder="Title:" required />
           <input name="heading" type="text" placeholder="Heading:" required />
           <textarea name="article" type="text" placeholder="Article:" style="padding-bottom: 100px" required></textarea>
@@ -438,12 +490,24 @@
       <div id="showAnalysis"></div>
       <form id="analysis">
         <div class="upperform">
-          <input name="icon_url" type="url" placeholder="Icon URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="5" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage5" src="" />
+            </div>
+          <input id="ob5" name="icon_url" type="hidden" placeholder="Icon URL:" required />
           <div style="display: flex;flex-direction:row">
             <input name="security" type="text" placeholder="Security:" required />
             <input name="pair" type="text" placeholder="Pair:" required />
           </div>
-          <input name="chart_url" type="url" placeholder="Chart URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload CHART IMG</p>
+            <button class="image-box" id="6" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage6" src="" />
+            </div>
+          <input id="ob6" name="chart_url" type="hidden" placeholder="Chart URL:" required />
           <input name="interval" type="text" placeholder="Interval:" required />
           <input name="pattern" type="text" placeholder="Pattern:" required />
           <input name="length" type="text" placeholder="Length:" required />
@@ -1259,7 +1323,13 @@
           </select>
 
           <input name="title" type="text" placeholder="Title:" required />
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG Url</p>
+            <button class="image-box" id="7" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage7" src="" />
+            </div>
+          <input id="ob7" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="description" placeholder="Description:" style="padding-bottom: 100px" required></textarea>
           <input name="clickthrough_link" type="url" placeholder="Clickthrough URL:" required />
           <input name="date" type="date" placeholder="Date:" required />
@@ -2076,7 +2146,13 @@
             <option value='fa-youtube-square'>&#xf166; fa-youtube-square</option>
           </select>
           <input name="title" type="text" placeholder="Title:" required />
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="8" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage8" src="" />
+            </div>
+          <input id="ob8" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="description" placeholder="Desc:" required></textarea>
           <input name="clickthrough_link" type="url" placeholder="Clickthrough Link:" required />
           <input name="date" type="date" placeholder="Date:" required />
@@ -2098,7 +2174,13 @@
         <div class="upperform">
           <input name="title" type="text" placeholder="Title:" required />
           <textarea name="summary" placeholder="Summary" style="padding-bottom: 100px" required></textarea>
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="9" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage9" src="" />
+            </div>
+          <input id="ob9" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="content" placeholder="Content" style="padding-bottom: 100px" required></textarea>
           <input name="date" type="date" placeholder="Date:" required />
         </div>
@@ -2119,7 +2201,13 @@
 
       <form id="deposit">
         <div style="display: flex; flex-direction: column; width: 100%;">
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="10" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage10" src="" />
+            </div>
+          <input id ="ob10" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="background-color" type="text" placeholder="BG Color:" required />
           <input name="button-color" type="text" placeholder="Btn Color:" required />
@@ -2141,7 +2229,13 @@
 
       <form id="withdrawal">
         <div style="display: flex; flex-direction: column; width: 100%;">
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="11" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage11" src="" />
+            </div>
+          <input id="ob11" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="background-color" type="text" placeholder="BG Color:" required />
           <input name="button-color" type="text" placeholder="Btn Color:" required />
@@ -2166,13 +2260,38 @@
         <div style="display: flex;
           flex-direction: column;
           width: 100%;">
-          <input name="img_url_desktop" type="url" placeholder="Img URL DESKTOP VIEW:" required />
-          <input name="img_url_mobile" type="url" placeholder="Img URL MOBILE VIEW:" required />
+          <div id="showPopup"></div>
+          <div class="fileUploadSection">
+            <p class="up-title">Upload DESKTOP IMG</p>
+            <button class="image-box" id="12" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage12" src="" />
+            </div>
+          <input id="ob12" name="img_url_desktop" type="hidden" placeholder="Img URL DESKTOP VIEW:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload MOBILE IMG</p>
+            <button class="image-box" id="13" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage13" src="" />
+            </div>
+          <input id="ob13" name="img_url_mobile" type="hidden" placeholder="Img URL MOBILE VIEW:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="title" type="text" placeholder="Title:" required />
           <input name="link_any" type="url" placeholder="Link if any:" />
-          <input name="content_img_url" type="url" placeholder="Content Img URL:" />
-          <input name="icon_url" type="url" placeholder="Icon URL:" />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload CONTENT IMG</p>
+            <button class="image-box" id="14" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage14" src="" />
+            </div>
+          <input id="ob14" name="content_img_url" type="hidden" placeholder="Content Img URL:" />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="15" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage15" src="" />
+            </div>
+          <input id="ob15" name="icon_url" type="hidden" placeholder="Icon URL:" />
         </div>
 
         <div>
@@ -2196,13 +2315,38 @@
         <div style="display: flex;
             flex-direction: column;
             width: 100%;">
-           <input name="img_url_desktop" type="url" placeholder="Img URL DESKTOP VIEW:" required />
-          <input name="img_url_mobile" type="url" placeholder="Img URL MOBILE VIEW:" required />
+          <div id="showPopup2"></div>
+          <div class="fileUploadSection">
+            <p class="up-title">Upload DESKTOP IMG</p>
+            <button class="image-box" id="16" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage16" src="" />
+            </div>
+          <input id="ob16" name="img_url_desktop" type="hidden" placeholder="Img URL DESKTOP VIEW:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload MOBILE IMG</p>
+            <button class="image-box" id="17" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage17" src="" />
+            </div>
+          <input id="ob17" name="img_url_mobile" type="hidden" placeholder="Img URL MOBILE VIEW:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="title" type="text" placeholder="Title:" required />
           <input name="link_any" type="url" placeholder="Link if any:" />
-          <input name="content_img_url" type="url" placeholder="Content Img URL:" />
-          <input name="icon_url" type="url" placeholder="Icon URL:" />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload CONTENT IMG</p>
+            <button class="image-box" id="18" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage18" src="" />
+            </div>
+          <input id="ob18" name="content_img_url" type="hidden" placeholder="Content Img URL:" />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="19" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage19" src="" />
+            </div>
+          <input id="ob19" name="icon_url" type="hidden" placeholder="Icon URL:" />
         </div>
 
         <div>
@@ -2219,10 +2363,16 @@
         <div style="    display: flex;
           flex-direction: column;
           width: 100%;">
-          <input name="icon_url" type="url" placeholder="Icon URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="20" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage20" src="" />
+            </div>
+          <input id="ob20" name="icon_url" type="hidden" placeholder="Icon URL:" required />
           <input name="title" type="text" placeholder="Title:" required />
           <input name="heading" type="text" placeholder="Heading:" required />
-          <textarea name="article" placeholder="Article:" style="padding-bottom: 100px" required></textarea>
+          <textarea name="article" type="text" placeholder="Article:" style="padding-bottom: 100px" required></textarea>
           <input name="date" type="date" placeholder="Date:" required />
         </div>
 
@@ -2243,12 +2393,24 @@
       </div>
       <form id="k_analysis">
         <div class="upperform">
-          <input name="icon_url" type="url" placeholder="Icon URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload ICON IMG</p>
+            <button class="image-box" id="21" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage21" src="" />
+            </div>
+          <input id="ob21" name="icon_url" type="hidden" placeholder="Icon URL:" required />
           <div style="display: flex;flex-direction:row">
             <input name="security" type="text" placeholder="Security:" required />
             <input name="pair" type="text" placeholder="Pair:" required />
           </div>
-          <input name="chart_url" type="url" placeholder="Chart URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload CHART IMG</p>
+            <button class="image-box" id="22" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage22" src="" />
+            </div>
+          <input id="ob22" name="chart_url" type="hidden" placeholder="Chart URL:" required />
           <input name="interval" type="text" placeholder="Interval:" required />
           <input name="pattern" type="text" placeholder="Pattern:" required />
           <input name="length" type="text" placeholder="Length:" required />
@@ -3063,7 +3225,13 @@
           </select>
 
           <input name="title" type="text" placeholder="Title:" required />
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="23" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage23" src="" />
+            </div>
+          <input id="ob23" name="img_url" type="url" placeholder="Image URL:" required />
           <textarea name="description" placeholder="Description:" style="padding-bottom: 100px" required></textarea>
           <input name="clickthrough_link" type="url" placeholder="Clickthrough URL:" required />
           <input name="date" type="date" placeholder="Date:" required />
@@ -3085,7 +3253,13 @@
 
       <form id="k_deposit">
         <div style="display: flex; flex-direction: column; width: 100%;">
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="24" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage24" src="" />
+            </div>
+          <input id="ob24" name="img_url" type="hidden" placeholder="Image URL:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="background-color" type="text" placeholder="BG Color:" required />
           <input name="button-color" type="text" placeholder="Btn Color:" required />
@@ -3107,7 +3281,13 @@
 
       <form id="k_withdrawal">
         <div style="display: flex; flex-direction: column; width: 100%;">
-          <input name="img_url" type="url" placeholder="Image URL:" required />
+          <div class="fileUploadSection">
+            <p class="up-title">Upload IMG</p>
+            <button class="image-box" id="25" onClick="myWidget.open()">
+              Upload Image
+            </button> <img class="imup-prev" id="uploadedimage25" src="" />
+            </div>
+          <input id="ob25 " name="img_url" type="url" placeholder="Image URL:" required />
           <textarea name="content" placeholder="Content:" required></textarea>
           <input name="background-color" type="text" placeholder="BG Color:" required />
           <input name="button-color" type="text" placeholder="Btn Color:" required />
@@ -3121,8 +3301,76 @@
       </form>
     </div>
   </div>
+  <script
+  src="https://widget.cloudinary.com/v2.0/global/all.js"
+  type="text/javascript"
+></script>
 
   <script>
+
+    function showPreview(i) {
+        document
+            .getElementById(i).style.display = "block"
+            
+    }
+  
+   function closePreview(i, e) {
+   e.preventDefault();
+  document.getElementById(i.parentNode.id).style.display = "none"
+   }
+
+    const cloudName = "xero-prime";
+      const uploadPreset = "mkx5ofqs";
+
+      const myWidget = cloudinary.createUploadWidget(
+        {
+          cloudName: cloudName,
+          uploadPreset: uploadPreset,
+          cloudName: cloudName,
+          uploadPreset: uploadPreset,
+          sources: ["local", "url", "google_drive"],
+          showPoweredBy: false
+        },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            const gett = sessionStorage.getItem("test");
+
+            console.log(result.info);
+            const alias = `uploadedimage` + gett;
+            const salias = `ob` + gett;
+            const palias = `op` + gett
+
+            document
+              .getElementById(alias)
+              .setAttribute("src", result.info.secure_url);
+
+            showPreview(palias);
+
+            const selected = document.getElementById(salias);
+            selected.value = result.info.secure_url;
+
+            console.log(gett, alias, selected.value);
+          }
+        }
+      );
+
+      window.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll(".image-box").forEach((el) => {
+          el.addEventListener("click", function (e) {
+            var t = e.target;
+            while (t && !t.id) t = t.parentNode;
+            if (t) {
+              sessionStorage.removeItem("test");
+
+              let elemId = t.id;
+              sessionStorage.setItem("test", elemId);
+              console.log(sessionStorage.getItem("test"), "get test success");
+            }
+          });
+        });
+      });
+
+
     var target = document.querySelectorAll("body");
 
 
@@ -3156,6 +3404,10 @@
     fetchRewards();
     fetchNews();
     fetchAnalysis();
+    fetchPopup();
+    fetchCRM();
+    fetchBonus();
+    fetchContest();
 
     async function fetchAnnouncements() {
       let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/announcements");
@@ -3180,6 +3432,31 @@
       let results = await response.json();
       controllerAnalysis(results);
     }
+
+    async function fetchPopup() {
+      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/popup/JOiaVsgo1BLevBRtvfXe");
+      let results = await response.json();
+      controllerPopup(results);
+    }
+
+    async function fetchCRM() {
+      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/crm/BV7gBKaF6eHtdnc2Cd3G");
+      let results = await response.json();
+      controllerCRM(results);
+    }
+
+    async function fetchBonus() {
+      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/bonus/QeFaS6Oa4I8FH4QpW9wM");
+      let results = await response.json();
+      controllerBonus(results);
+    }
+
+    async function fetchContest() {
+      let response = await fetch("https://us-central1-bp-serverless.cloudfunctions.net/contest/0GZrrntBNa3aRECISaE1");
+      let results = await response.json();
+      controllerContest(results);
+    }
+
 
 
     function controllerAnnouncements(x) {
@@ -3320,6 +3597,116 @@
  </div>`).join('')
 
     }
+
+    function controllerPopup(x) {
+
+      let results = x;
+      
+      function compare() {
+            if ( results.content_img_url.length < 2) {
+            console.log('nth'); return ` `
+          } else {return `<img id="content-image-switch" width="100%" src=${results.content_img_url}/>`}
+          }
+
+      const brx = document.getElementById('showPopup')
+      brx.innerHTML = `
+ <div class="col-an-single">
+  <p style="font-size:10px">${results.id}</p>
+  <div id="notice_" class="fulldesign">
+
+<div class="bannerdisplay">
+  <img src=${results.img_url_desktop} class="image_1">
+  <img src=${results.img_url_mobile} class="image_2" />
+</div>
+
+<div class="secondcontent">
+  <div class="contentinside">
+      <p class="heading">${results.title}</p>
+      <a href=${results.link_any}>
+      ${compare()}
+      </a>
+      <p class="content_heading">${results.content}</p>
+  </div>
+  <div class="bottomdown">
+    <div class= "forbutz">
+      <button id="close-btn-modal" class="newbutonz">Okay</button>
+    </div>
+    <div class="giftbox">
+      <img src=${results.icon_url} class="gift" />
+    </div>
+</div>
+
+</div>
+
+</div>
+    
+ </div>`
+
+    }
+
+    function controllerCRM(x) {
+
+let results = x;
+
+const brx = document.getElementById('showCRM')
+brx.innerHTML = `
+<div class="col-an-single">
+  <p style="font-size:10px">${results.id}<br/>${results.name}</p>
+ <img width="100%" src="${results.img_url}"/>
+
+</div>`
+
+}
+
+function controllerBonus(x) {
+
+let results = x;
+
+const brx = document.getElementById('showBonus')
+brx.innerHTML = `
+<div class="col-an-single">
+  <p style="font-size:10px">${results.id}</p>
+  <div class="bonus_banner_1">
+      <div class="first-row">
+        <div class="bonus_left">
+      <p class="bonus-title">${results.title}</p>
+      <p class="bonus-text">${results.description}</p>
+      </div>
+      <div class="bonus_right">
+        <button id="" class="bonusbut redeemed">Redeemed</button>
+      </div>
+      </div><a onClick="window.location.href='${results.clickthrough_url}'">
+      <img class="bonus-img" src="${results.img_url}" /></a>
+      </div>
+
+</div>`
+
+}
+
+function controllerContest(x) {
+
+let results = x;
+
+const brx = document.getElementById('showContest')
+brx.innerHTML = `
+<div class="col-an-single">
+  <p style="font-size:10px">${results.id}</p>
+  <div class="bonus_banner_1">
+      <div class="first-row">
+        <div class="bonus_left">
+      <p class="bonus-title">${results.title}</p>
+      <p class="bonus-text">${results.description}</p>
+      </div>
+      <div class="bonus_right">
+        <button id="" class="bonusbut redeemed">Redeemed</button>
+      </div>
+      </div><a onClick="window.location.href='${results.clickthrough_url}'">
+      <img class="bonus-img" src="${results.img_url}" /></a>
+      </div>
+
+</div>`
+
+}
 
     // GET ALL FORMDATA
     const getFormDataCRM = () => {
@@ -3467,7 +3854,14 @@
         "body": JSON.stringify(value)
       })
         .then(response => {
-          if (response.status == 200) { alert('success') } else { alert('failed') };
+          if (response.status == 200) {
+            alert('success');
+            const spin = document.getElementById("mainspinner")
+            spin.style.display = "none"
+          } else {
+            alert('failed'); const spin = document.getElementById("mainspinner")
+            spin.style.display = "block"
+          };
         })
         .catch(err => {
           console.error(err);

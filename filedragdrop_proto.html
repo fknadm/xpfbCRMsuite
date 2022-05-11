@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Upload Widget example</title>
+  </head>
+  <body>
+    <h3>Upload Widget Example</h3>
+
+    <button class="image-box" id="1" onClick="myWidget.open()">
+      Upload files 1
+    </button>
+    <button class="image-box" id="2" onClick="myWidget.open()">
+      Upload files 2
+    </button>
+    <button class="image-box" id="3" onClick="myWidget.open()">
+      Upload files 3
+    </button>
+
+    <form>
+      <input type="hidden" placeholder="test" id="ob1" />
+      <input type="hidden" placeholder="test" id="ob2" />
+      <input type="hidden" placeholder="test" id="ob3" />
+    </form>
+
+    <img id="uploadedimage1" src="" />
+    <img id="uploadedimage2" src="" />
+    <img id="uploadedimage3" src="" />
+
+    <script
+      src="https://widget.cloudinary.com/v2.0/global/all.js"
+      type="text/javascript"
+    ></script>
+
+    <script>
+      const cloudName = "xero-prime";
+      const uploadPreset = "mkx5ofqs";
+
+      const myWidget = cloudinary.createUploadWidget(
+        {
+          cloudName: cloudName,
+          uploadPreset: uploadPreset,
+          cloudName: cloudName,
+          uploadPreset: uploadPreset,
+          sources: ["local", "url", "google_drive"],
+          showPoweredBy: false
+        },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            const gett = sessionStorage.getItem("test");
+
+            console.log(result.info);
+            const alias = `uploadedimage` + gett;
+            const salias = `ob` + gett;
+
+            document
+              .getElementById(alias)
+              .setAttribute("src", result.info.secure_url);
+
+            const selected = document.getElementById(salias);
+            selected.value = result.info.secure_url;
+
+            console.log(gett, alias, selected.value);
+          }
+        }
+      );
+
+      window.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll(".image-box").forEach((el) => {
+          el.addEventListener("click", function (e) {
+            var t = e.target;
+            while (t && !t.id) t = t.parentNode;
+            if (t) {
+              sessionStorage.removeItem("test");
+
+              let elemId = t.id;
+              sessionStorage.setItem("test", elemId);
+              console.log(sessionStorage.getItem("test"), "get test success");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
